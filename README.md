@@ -23,17 +23,40 @@
 
 Получите уникальные названия районов из таблицы с адресами, которые начинаются на “K” и заканчиваются на “a” и не содержат пробелов.
 
+```sql
+SELECT DISTINCT district
+FROM sakila.address
+WHERE district like 'K%a'
+      and POSITION(' ' IN district) = 0;
+```
+
 <img src = "img/12_3_1.jpg" width = 100%>
 
 ### Задание 2
 
 Получите из таблицы платежей за прокат фильмов информацию по платежам, которые выполнялись в промежуток с 15 июня 2005 года по 18 июня 2005 года **включительно** и стоимость которых превышает 10.00.
 
+
+```sql
+SELECT *
+FROM sakila.payment
+WHERE Date(payment_date) between '2005-06-15' and '2005-06-18'
+		and amount > 10.0;
+```
+
 <img src = "img/12_3_2.jpg" width = 100%>
 
 ### Задание 3
 
 Получите последние пять аренд фильмов.
+
+
+```sql
+SELECT *
+FROM sakila.rental
+ORDER BY rental_id DESC
+LIMIT 5;
+```
 
 <img src = "img/12_3_3.jpg" width = 100%>
 
@@ -44,6 +67,12 @@
 Сформируйте вывод в результат таким образом:
 - все буквы в фамилии и имени из верхнего регистра переведите в нижний регистр,
 - замените буквы 'll' в именах на 'pp'.
+
+```sql
+SELECT REPLACE(LOWER(first_name), 'll', 'pp'), LOWER(last_name), active
+FROM sakila.customer
+WHERE first_name IN ('Kelly', 'Willie') and active = 1;
+```
 
 <img src = "img/12_3_4.jpg" width = 100%>
 
